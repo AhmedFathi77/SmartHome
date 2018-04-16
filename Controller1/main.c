@@ -4,6 +4,17 @@
  *  Created on: Apr 7, 2018
  *      Author: leenovoz510
  */
+
+/*
+ = \												 					  / =
+ =	\												 					 /  =
+ =   \																	/	=
+ =	  >> This Is Controller  ***** => 1 <= ***** This Is Controller    << 	=
+ =   /																    \	=
+ =  /																	 \	=
+ = /																	  \	=
+*/
+
 #include <avr/delay.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -12,6 +23,7 @@
 #include "keypad.h"
 #include "interrupt.h"
 #include "TimerModule.h"
+#include "UART.h"
 
 
 /* 		------> this Interrupt Works when PIR Detect a human in the house <------ 		*/
@@ -35,8 +47,9 @@ int main(void){
 		LCD_Init();
 		_delay_ms(10);
 		LCD_Clear();
-		ADC_Init();
 
+		ADC_Init();
+		UART_Init();
 		int Key[4]= {11} , i=0 ;
 			while(1){
 				Go_to(3 , 1);
@@ -46,6 +59,16 @@ int main(void){
 				Go_to(11 , 2);
 				ADCvalue = ADC_Value() ;
 				LCD_IntegerToStringPrint(ADCvalue);
+
+				if(ADCH > 30){
+					UART_Transmiter('F');
+					Go_to(-2 , 3);
+					LCD_Print("There is Fire");
+				}else{
+					UART_Transmiter('N');
+					Go_to(-2 , 3);
+					LCD_Print("             ");
+								}
 				Go_to(0 , 3);
 				Key[i] = Key_Pressed();
 				if(Key[i] != 11 && i<4){
