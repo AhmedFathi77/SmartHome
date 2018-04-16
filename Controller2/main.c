@@ -45,8 +45,8 @@ int main(void){
 	while(1){
 		Go_to(1 , 1);
 		LCD_IntegerToStringPrint(Number_overflow);
-		Go_to(4 , 1);
-		LCD_Print(" Humans ");
+		Go_to(3 , 1);
+		LCD_Print("Human Detected");
 		str = UART_Receive();
 		if(str == 'F'){
 			Go_to(1 , 2);
