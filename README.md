@@ -11,5 +11,6 @@ Some Functions in the drivers not used in the projecct but i wrote it any way fo
  3- LM35
  4- Ultrasonic
  5- Flame sensor
+ 6- Gas Sensor
  
  ```
