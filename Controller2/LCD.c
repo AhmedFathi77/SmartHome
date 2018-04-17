@@ -15,7 +15,7 @@ void LCD_SendCommand(char command){
 	PORTD &= ~(1<<RW);
 
 	PORTD |= (1<<En);
-	_delay_ms(10);
+	_delay_ms(1);
     PORTD &= ~(1<<En);
 }
 void LCD_SendData(char Data){
@@ -25,12 +25,12 @@ void LCD_SendData(char Data){
 	PORTD |=  (1<<RS);
 
 	PORTD |= (1<<En);
-	_delay_ms(10);
+	_delay_ms(1);
 	PORTD &= ~(1<<En);
 }
 void LCD_Clear(){
 	LCD_SendCommand(0x01);
-	_delay_ms(10);
+	_delay_ms(1);
 }
 void LCD_Init(){
 	DDRC = 0xFF; // LCD OUTPUT
@@ -50,7 +50,7 @@ void LCD_Print(char *data){
 void Go_to(char x ,char y){
 	char firstAddress[] = {0x80,0xC0,0x94,0xD4};
 	LCD_SendCommand(firstAddress[y-1] + x-1);
-		_delay_ms(10);
+		_delay_ms(1);
 }
 void LCD_IntegerToStringPrint(int num){
 	char buff[16]; /* String to hold the ascii result */
