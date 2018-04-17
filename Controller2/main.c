@@ -25,17 +25,24 @@
 volatile int Number_overflow = 0;
 ISR(INT0_vect){
 		Number_overflow++;
-
+}
+ISR(INT1_vect){
+		PORTB |=  (1<<PB1);
+		_delay_ms(500);
+		PORTB &= ~(1<<PB1);
+		_delay_ms(500);
+		Go_to(-2,3);
+		LCD_Print("There is Flame");
 }
 
 int main(void){
 	DDRB|=(1<<PB1) ;
 	DDRB &= ~(1<<PB0);
-	PORTB|=(1<<PB1);
-	PORTB|=(1<<PB0);
+
 	SREG  |= (1<<7);
 	char str;
 	INT0_init();
+	INT1_init();
 	LCD_Init();
 	_delay_ms(10);
 	LCD_Clear();
